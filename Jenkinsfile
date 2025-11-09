@@ -43,7 +43,16 @@ pipeline {
                 }
             }
         }
-         stage('Docker Build') {
+        stage('Unit Testing') {
+            steps {
+                script {
+                    sh """
+                        echo "unit testing"
+                    """
+                }
+            }
+        }
+        stage('Docker Build') {
             steps {
                 script { 
                     withAWS(credentials: 'aws-creds', region: 'us-east-1') {
