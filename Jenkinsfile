@@ -80,13 +80,7 @@ pipeline {
         }
     }
     
-        stage('Test') {
-            steps {
-                script {
-                    echo 'Testing..'
-                }
-            }
-        }
+      
     }
     post { 
         always { 
@@ -101,4 +95,3 @@ pipeline {
         }
     }
     
-}
