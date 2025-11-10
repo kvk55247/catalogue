@@ -72,7 +72,7 @@ pipeline {
                               string(name: 'appVersion', value: "${appVersion}"),
                               string(name: 'deploy_to', value: 'dev')
                           ]
-                        wait: false, // vpc will not wait for sg pipeline completion
+                        wait: false // vpc will not wait for sg pipeline completion
                         propagate: false // even sg fails vpc will not be affected
                             
                     }    
