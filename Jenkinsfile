@@ -5,7 +5,7 @@ pipeline {
         }
     }
     environment {
-        def appVersion = ''
+        appVersion = ''
         REGION = "us-east-1"
         ACC_ID = "784585544641"
         PROJECT = "roboshop"
