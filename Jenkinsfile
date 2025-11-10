@@ -68,11 +68,11 @@ pipeline {
             steps {
                     script { 
                         build job: 'catalogue-deploy',
-                         parameters: [
-                              string(name: 'appVersion', value: "${appVersion}"),
-                              string(name: 'deploy_to', value: 'dev')
-                          ]
-                        wait: false // vpc will not wait for sg pipeline completion
+                        parameters: [
+                            string(name: 'appVersion', value: "${appVersion}"),
+                            string(name: 'deploy_to', value: 'dev')
+                          ],
+                        wait: false,// vpc will not wait for sg pipeline completion
                         propagate: false // even sg fails vpc will not be affected
                             
                     }    
