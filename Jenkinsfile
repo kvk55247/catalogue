@@ -67,6 +67,37 @@ pipeline {
                 waitForQualityGate abortPipeline: true }
             }
         }
+        stage('Check Dependabot Alerts') {
+            steps {
+                script {
+                    // Call the GitHub API
+                    def response = sh(
+                        script: """
+                            curl -s -H "Accept: application/vnd.github+json" \
+                                 -H "Authorization: token ${GITHUB_TOKEN}" \
+                                 https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/dependabot/alerts
+                        """,
+                        returnStdout: true
+                    ).trim()
+
+                    // Parse JSON using Groovy's JsonSlurper
+                    def json = new groovy.json.JsonSlurper().parseText(response)
+
+                    // Filter for high or critical severity
+                    def criticalOrHigh = json.findAll { it.security_advisory.severity in ['high', 'critical'] }
+
+                    if (criticalOrHigh.size() > 0) {
+                        echo "Found ${criticalOrHigh.size()} critical/high Dependabot alerts:"
+                        criticalOrHigh.each { alert ->
+                            echo "- ${alert.security_advisory.summary} (Severity: ${alert.security_advisory.severity})"
+                        }
+                        error("Pipeline failed due to critical/high Dependabot alerts!")
+                    } else {
+                        echo "No critical or high Dependabot alerts found."
+                    }
+                }
+            }
+        }
         stage('Docker Build') {
             steps {
                 script { 
