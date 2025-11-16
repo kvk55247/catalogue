@@ -1,6 +1,6 @@
 @Library('jenkins-shared-library')
 
 def configMap = [
-    greeting = "Hello Jenkins"
+    greeting : "Hello Jenkins"
 ]
 samplePipeline(configMap)
