@@ -4,4 +4,4 @@ def configMap = [
     project : "roboshop",
     component : "catalogue"
 ]
-nodejseksPipeline(configMap) // by default it will call function inside thids pipeline
+nodejsEKSPipeline(configMap) // by default it will call function inside thids pipeline
