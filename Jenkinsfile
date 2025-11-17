@@ -1,6 +1,7 @@
 @Library('jenkins-shared-library')
 
 def configMap = [
-    greeting : "Hello Jenkins"
+    project : "roboshop",
+    component : "catalogue"
 ]
-samplePipeline(configMap)
+nodejseksPipeline(configMap) // by default it will call function inside thids pipeline
